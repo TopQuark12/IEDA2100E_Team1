@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xml:lang="zh"
+      lang="zh"
+      dir="ltr">
+
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="manifest" href="https://docs.ai-thinker.com/manifest.json">
+    <title>
+        GSM/GPRS操作示例 |
+        安信可科技    </title>
+
+
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+
+    <meta name="generator" content="DokuWiki"/>
+<meta name="robots" content="index,follow"/>
+<meta name="keywords" content="gprs,examples"/>
+<link rel="search" type="application/opensearchdescription+xml" href="https://docs.ai-thinker.com/lib/exe/opensearch.php" title="安信可科技"/>
+<link rel="start" href="https://docs.ai-thinker.com/"/>
+<link rel="contents" href="https://docs.ai-thinker.com/gprs/examples?do=index" title="网站地图"/>
+<link rel="manifest" href="https://docs.ai-thinker.com/lib/exe/manifest.php"/>
+<link rel="alternate" type="application/rss+xml" title="最近更改" href="https://docs.ai-thinker.com/feed.php"/>
+<link rel="alternate" type="application/rss+xml" title="当前命名空间" href="https://docs.ai-thinker.com/feed.php?mode=list&amp;ns=gprs"/>
+<link rel="alternate" type="text/html" title="纯HTML" href="https://docs.ai-thinker.com/_export/xhtml/gprs/examples"/>
+<link rel="canonical" href="examples.html"/>
+<link rel="stylesheet" type="text/css" href="../lib/exe/css.php@t=material&amp;tseed=bb8131c68c14faa1e5c3d96accb2cf51.css"/>
+<!--[if gte IE 9]><!-->
+<script type="text/javascript">/*<![CDATA[*/var NS='gprs';var JSINFO = {"isadmin":0,"isauth":0,"id":"gprs:examples","namespace":"gprs","ACT":"show","useHeadingNavigation":1,"useHeadingContent":1};
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="https://cdn.bootcdn.net/ajax/libs/jquery-migrate/3.0.0/jquery-migrate.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="https://cdn.bootcdn.net/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="../lib/exe/js.php@t=material&amp;tseed=bb8131c68c14faa1e5c3d96accb2cf51"></script>
+<!--<![endif]-->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+
+    <!-- Search -->
+    <meta name="robots" content="noimageindex"/>
+    <meta name="googlebot" content="noimageindex"/>
+
+    <!-- Styling -->
+    <meta name="theme-color" content="#455A64">
+
+    <meta name="apple-mobile-web-app-status-bar-style" content="##455A64">
+    <link rel="shortcut icon" href="../lib/tpl/material/images/favicon.ico" />
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+</head>
+
+<body>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer             dokuwiki mode_show tpl_material    mdl-layout--fixed-header" id="dokuwiki__top">
+    <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+            <div class="plugin_translation"><span>本页面的其他翻译:</span> <ul><li><div class='li cur'><a href="examples.html" class="wikilink1 cur" title="中文">zh</a></div></li><li><div class='li'><a href="https://docs.ai-thinker.com/en/gprs/examples" class="wikilink2" title="English">en</a></div></li></ul></div>            <!-- <span class="mdl-layout-title content-title">
+                安信可科技            </span> -->
+            <div class="mdl-layout-spacer"></div>
+            <form action="https://docs.ai-thinker.com/doku.php" accept-charset="utf-8" class="search" id="dw__search"
+                  role="search">
+                <input type="hidden" name="do" value="search">
+                <div class="content-search">
+                    <div class="mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input edit" id="qsearch__in" accesskey="f" name="id"
+                               title="[F]" autocomplete="off">
+                        <label class="mdl-textfield__label" for="qsearch__in">Search</label>
+                    </div>
+                </div>
+                <div id="qsearch__out" class="ajax_qsearch JSpopup content-search__popup" style="display: none;"></div>
+            </form>
+            <a href="https://docs.ai-thinker.com/gprs/examples?do=login&amp;sectok="  class="action login" rel="nofollow" title="登录">
+                            <button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--colored">
+                              <i class="material-icons">perm_identity</i>
+                            </button></a>        </div>
+    </header>
+    <div class="mdl-layout__drawer mdl-layout__drawer--out">
+        <section class="drawer-top">
+            <span class="mdl-logo"><a href="https://docs.ai-thinker.com/welcome"  id="dokuwiki__top" accesskey="h" title="[H]"><img src="../lib/tpl/material/images/icon_logo.png" alt="安信可科技" /></a></span>
+            <br>
+            <div class="logo-title" style="display: inline-block;font-size: 20px;font-weight: bold;color: #333333;text-align: center;width: 80%;margin:1em 0">
+            安信可科技            </div>
+                    </section>
+        <nav class="mdl-navigation mdl-layout-spacer">
+            
+<p>
+ <strong> <a href="https://docs.ai-thinker.com/esp8266" class="wikilink1" title="esp8266">ESP8266系列模组专题</a> </strong>
+</p>
+
+<p>
+ <strong> <a href="https://docs.ai-thinker.com/esp32" class="wikilink1" title="esp32">ESP32 系列模组专题</a> </strong>
+</p>
+
+<p>
+ <strong> <a href="https://docs.ai-thinker.com/gprs" class="wikilink1" title="gprs">GPRS 系列模组专题</a> </strong>
+</p>
+
+<p>
+ <strong> <a href="https://docs.ai-thinker.com/4g_cat.1" class="wikilink1" title="4g_cat.1">4G Cat.1系列模组专题</a> </strong>
+</p>
+
+<p>
+ <strong><a href="https://docs.ai-thinker.com/xr" class="wikilink1" title="xr">全志XR 系列模组专题</a></strong>
+</p>
+
+<p>
+ <strong> <a href="https://docs.ai-thinker.com/2.4g" class="wikilink1" title="2.4g">2.4G 模组专题</a> </strong>
+</p>
+
+<p>
+<strong> <a href="https://docs.ai-thinker.com/lora" class="wikilink1" title="lora">LoRa 系列模组专题</a> </strong>
+</p>
+
+<p>
+<strong><a href="https://docs.ai-thinker.com/lorawan" class="wikilink1" title="lorawan">LoRaWAN 解决方案</a></strong>
+</p>
+
+<p>
+<strong> <a href="https://docs.ai-thinker.com/blue_tooth" class="wikilink1" title="blue_tooth">蓝牙 模组专题</a> </strong>
+</p>
+
+<p>
+<strong><a href="https://docs.ai-thinker.com/gps" class="wikilink1" title="gps">GPS 模组专题</a></strong>
+</p>
+
+<p>
+<strong><a href="https://docs.ai-thinker.com/rtl87xx" class="wikilink1" title="rtl87xx">RTL87XX 系列模组专题</a></strong>
+</p>
+
+<p>
+<strong><a href="https://docs.ai-thinker.com/uwb" class="wikilink1" title="uwb">UWB 模组专题</a></strong>
+</p>
+
+<p>
+<strong><a href="https://docs.ai-thinker.com/si4432" class="wikilink1" title="si4432">SI4432 模组专题</a></strong>
+</p>
+
+<p>
+<strong><a href="https://docs.ai-thinker.com/nb-iot" class="wikilink1" title="nb-iot">NB-IoT 模组专题</a></strong>
+</p>
+           
+            <div class="mdl-layout-spacer" style="max-height: 20px"></div>
+            <!-- <a class="mdl-navigation__link" href="/doku.php?do=media">
+                <i class="material-icons" role="presentation">perm_media</i>
+                Media Manager</a> -->
+                            <!-- <a id="feedback" class="mdl-navigation__link" href="mailto:address@domain.com?subject=Feedback%20for%20Website&body=Thank%20you%20so%20much%20for%20taking%20the%20time%20to%20write%20feedback.%20We%20really%20appreciate%20it%20%3A%29%20%0A%0A%20%5Byour%20message%5D%20%0A%0A%0A%20You%20can%20ignore%20all%20the%20technical%20information%20below.%20It%20only%20helps%20us%20track%20down%20what%20the%20problem%20might%20be.%0A%0A%3D%3D%3D%3DPLEASE%20DO%20NOT%20DELETE%3D%3D%3D%3D%3D%0APage%3Agprs%3Aexamples%0APerm%3A1%0AUser%3A113.255.78.96%0AMobile%3A%0AAction%3Ashow%0A%3D%3D%3D%3DMORE%20TECH%20INFORMATION%3D%3D%3D%3D%3D%0AREDIRECT_STATUS%3A%20200%0AHTTP_HOST%3A%20docs.ai-thinker.com%0AHTTP_X_REAL_IP%3A%20%0AHTTP_USER_AGENT%3A%20Wget%2F1.19.4%20%28linux-gnu%29%0AHTTP_ACCEPT%3A%20%2A%2F%2A%0AHTTP_ACCEPT_ENCODING%3A%20identity%0AHTTP_ACCEPT_LANGUAGE%3A%20%0AHTTP_X_REAL_IP%3A%20" rel="external" target="_blank">
+                    <i class="material-icons" role="presentation">feedback</i>
+                    Feedback</a> -->
+                <script>
+                    var check = false;
+                    (function(a){if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4))) check = true;})(navigator.userAgent||navigator.vendor||window.opera);
+                    if(check) document.querySelector("#feedback").target = "_top";
+
+                    //左侧导航栏选中
+                    $('.mdl-navigation p').click(function(e){ 
+                    $(this).addClass('active').siblings().removeClass('active');   
+                    $('.active').css('background','#fff');    
+                    })
+                </script>
+                    </nav>
+    </div>
+    <main class="mdl-layout__content">
+        <div class="page-content">
+            <!-- <div class="content-notif">
+                <div class="plugin_translation"><span>本页面的其他翻译:</span> <ul><li><div class='li cur'><a href="/gprs/examples" class="wikilink1 cur" title="中文">zh</a></div></li><li><div class='li'><a href="/en/gprs/examples" class="wikilink2" title="English">en</a></div></li></ul></div>            </div> -->
+            <div class="content-youarehere">
+                                    <p><span class="bchead">您的足迹:</span> <span class="bcsep">•</span> <span class="curid"><bdi><a href="examples.html"  class="breadcrumbs" title="gprs:examples">GSM/GPRS操作示例</a></bdi></span></p>
+                                            </div>
+            <article class="content-card">
+                <div class="content-actions" hidden="hidden">
+                    <div class="content-actions__container">
+                        <div class='content-actions__action'><a href="https://docs.ai-thinker.com/gprs/examples?do=edit" title="显示源文件 [v]" rel="nofollow" accesskey="v" class="menuitem source">
+                                            <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored content-actions__action-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13 9h5.5L13 3.5V9M6 2h8l6 6v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4c0-1.11.89-2 2-2m.12 13.5l3.74 3.74 1.42-1.41-2.33-2.33 2.33-2.33-1.42-1.41-3.74 3.74m11.16 0l-3.74-3.74-1.42 1.41 2.33 2.33-2.33 2.33 1.42 1.41 3.74-3.74z"/></svg>
+                                            </button></a></div>                    </div>
+                </div>
+                                    <div class="content-card__title">
+                                                    <h1 class="pagename-title">GSM/GPRS操作示例</h1>
+                                            </div>
+                                <div class="content-card__text">
+                    
+<h1 class="sectionedit1" id="gsmgprs操作示例">GSM/GPRS操作示例</h1>
+<div class="level1">
+
+<p>
+说明：本页面操作示例使用串口助手进行开发演示。
+</p>
+
+<p>
+<strong>请先仔细看右边的目录，按模块，寻找自己需要的功能</strong>
+</p>
+
+</div>
+
+<h1 class="sectionedit2" id="更新历史">更新历史</h1>
+<div class="level1">
+
+<p>
+更新说明：
+</p>
+<pre class="code"> 
+  2018年3月26日：
+  固件版本：A9/A9_gV02.00.20180327RC
+  添加：
+      1.A9G的GPS低功耗模式
+      2.A9/A9G的HTTP和MQTT的功能
+      3.A9/A9G模组的串口低功耗以及GPIO低功耗
+  优化：
+      1.A9/A9G的AT+RST指令进行优化
+      2.A9/A9G的AT+LOCATION指令进行优化
+              </pre>
+
+</div>
+
+<h1 class="sectionedit3" id="a9a9g_gprs">A9/A9G(GPRS)</h1>
+<div class="level1">
+
+</div>
+
+<h1 class="sectionedit4" id="模组软复位及关机">模组软复位及关机</h1>
+<div class="level1">
+<pre class="code">AT+RST=X   //X=1表示软重启,X=2表示关机</pre>
+
+<p>
+示例
+</p>
+<pre class="code">AT+RST=1 //软件重启
+Init...
++CREG: 2
++CTZV:18/03/30,06:59:43,+08
++CREG: 1
++CTZV:18/03/30,06:59:44,+08
+OK
+A9/A9G
+V02.00.20180327RC
+Ai_Thinker_Co.LTD
+READY</pre>
+
+<p>
+示例2：
+</p>
+<pre class="code">AT+RST=2	//运行这条指令模组会进入管断状态,前提是模组的供电管教是VBAT3.5V~4.2V</pre>
+
+</div>
+
+<h2 class="sectionedit5" id="电话接收">电话接收</h2>
+<div class="level2">
+
+<p>
+相关指令 
+</p>
+<pre class="code">ATDxxxxx;//xxx为电话号码</pre>
+
+<p>
+示例
+打电话	
+</p>
+<pre class="code">ATD10086
+OK
++CIEV: &quot;CALL&quot;,1
++CIEV: &quot;SOUNDER&quot;,1	//响铃
++CIEV: &quot;SOUNDER&quot;,0	//挂断
++CIEV: &quot;CALL&quot;,0
+BUSY	//显示BUSY</pre>
+
+<p>
+接到短话  
+</p>
+<pre class="code">(若想使用来电提醒功能，请使用AT+CLIP=1;注意，该功能必须需要你的SIM卡自带来电提醒功能)
+RING
+RING</pre>
+
+</div>
+
+<h2 class="sectionedit6" id="短信设置">短信设置</h2>
+<div class="level2">
+
+<p>
+相关指令
+</p>
+<pre class="code">AT+CPMS=&quot;SM&quot;,&quot;SM&quot;,&quot;SM&quot;  //设置短信存储单元
+AT+CMGF=0/1		//设置短信格式，1为text格式读取，0为pud格式读取
+AT+CMGR=x		//读取短信内容,x为第几条短信
+AT+CMGL=4/&quot;ALL&quot;	//查看短信列表 PUD格式下读取参数为4， txt格式要发送AT+CMGL=&quot;ALL&quot;
+AT+CMGD=1		//删除短信。 若果使用AT+CMGD=1,4  则为删除所有短信</pre>
+
+<p>
+示例
+</p>
+<pre class="code">AT+CPMS=&quot;SM&quot;,&quot;SM&quot;,&quot;SM&quot;	//设置短信存储单元，同时也可以查看短信容量
++CPMS: 0,50,0,50,0,50
+OK
+
+AT+CMGF=1		//设置为TXT格式读取
+OK</pre>
+<pre class="code">+CIEV: &quot;MESSAGE&quot;,1	//接收到短信,内容包括电话号码和时间以及内容
++CMT: &quot;+86xxxxxxxxxxx&quot;,,&quot;2017/10/09,09:14:52+08&quot;
+111</pre>
+<pre class="code">+CIEV: &quot;MESSAGE&quot;,1
++CMT: &quot;+86xxxxxxxxxxx&quot;,,&quot;2017/10/09,09:16:25+08&quot;
+222</pre>
+<pre class="code">AT+CMGF=0		//设置为PUD格式接受
+OK
+
++CIEV: &quot;MESSAGE&quot;,1	//以PUD接收到短信,内容包括电话号码和时间以及内容
++CMT: ,23
+0891683110602305F0240D91687186935218F500007101909061452303B3D90C
+
++CIEV: &quot;MESSAGE&quot;,1
++CMT: ,23
+0891683110602305F0240D91687186935218F500007101909071202303341A0D</pre>
+<pre class="code">AT+CMGL=4		//列出所有短信-&gt;  pud格式，使用这条命令参数为4
++CMGL: 1,1,,23
+0891683110602305F0240D91687186935218F500007101909041252303B1580C
++CMGL: 2,1,,23
+0891683110602305F0240D91687186935218F50000710190906152230332990C
++CMGL: 3,1,,23
+0891683110602305F0240D91687186935218F500007101909061452303B3D90C
++CMGL: 4,1,,23
+0891683110602305F0240D91687186935218F500007101909071202303341A0D
+OK</pre>
+<pre class="code">AT+CMGF=1		//设置为TXT格式读取
+OK</pre>
+<pre class="code">AT+CMGL=&quot;ALL&quot;	//列出所有短信-&gt;  txt格式，使用这条命令参数为ALL
++CMGL: 1,&quot;REC READ&quot;,&quot;+86xxxxxxxxxxx&quot;,,&quot;2017/10/09,09:14:52+08&quot;
+111
++CMGL: 2,&quot;REC READ&quot;,&quot;+86xxxxxxxxxxx&quot;,,&quot;2017/10/09,09:16:25+08&quot;
+222
++CMGL: 3,&quot;REC READ&quot;,&quot;+86xxxxxxxxxxx&quot;,,&quot;2017/10/09,09:16:54+08&quot;
+333
++CMGL: 4,&quot;REC READ&quot;,&quot;+86xxxxxxxxxxx&quot;,,&quot;2017/10/09,09:17:02+08&quot;
+444
+OK</pre>
+<pre class="code">AT+CMGR=1		//读取第一条短信
++CMGR: &quot;REC READ&quot;,&quot;+86xxxxxxxxxxx&quot;,,&quot;2017/10/09,09:14:52+08&quot;
+111
+OK</pre>
+<pre class="code">AT+CMGR=2		//读取第二条短信
++CMGR: &quot;REC READ&quot;,&quot;+86xxxxxxxxxxx&quot;,,&quot;2017/10/09,09:16:25+08&quot;
+222
+OK</pre>
+<pre class="code">AT+CMGR=3		//读取第三条短信
++CMGR: &quot;REC READ&quot;,&quot;+86xxxxxxxxxxx&quot;,,&quot;2017/10/09,09:16:54+08&quot;
+333</pre>
+<pre class="code">AT+CMGD=1		//删除第一条短信
+OK</pre>
+<pre class="code">AT+CMGD=2		//删除第二条短信   谨记  删除第一条后，第二条内容不会自动跑到第一条，而是依然占据第二条短信，但是当所有短信都删除后，再接收到短信后，会自动排列到第一条信息的位置
+OK</pre>
+<pre class="code">AT+CMGD=3		//删除第三条短信
+OK</pre>
+<pre class="code">AT+CPMS=&quot;SM&quot;,&quot;SM&quot;,&quot;SM&quot;	//查看一下短信容量
++CPMS: 1,50,1,50,1,50
+OK</pre>
+<pre class="code">AT+CMGL=&quot;ALL&quot;	//删除了3条之后，查看短信列表，只剩1条
++CMGL: 4,&quot;REC READ&quot;,&quot;+86xxxxxxxxxxx&quot;,,&quot;2017/10/09,09:17:02+08&quot;
+444
+OK</pre>
+<pre class="code">AT+CMGD=1,4		//删除所有短信
+OK</pre>
+
+<p>
+<strong>发送短信</strong>
+</p>
+<pre class="code">AT+CMGF=1    //文本方式发送  
+AT+CMGS=&quot;xxxxxxxxxxx(电话号码)&quot;   //返回&gt;,然后输入要发送的txt内容，发送数据，之后请取消”发送新行”选项,勾选&quot;HEX(16进制发送)&quot;选项，最后发送0x1a即可。</pre>
+
+<p>
+<a href="https://docs.ai-thinker.com/_media/gprs/send_message_chinese.docx" class="media mediafile mf_docx" title="gprs:send_message_chinese.docx (52.8 KB)">中文发送短信</a>
+</p>
+<pre class="code">另外可以使用PUD的编码方式发送信息： 
+AT+CMGS=XX //要发送的字节数
+&gt;xxxxxxxxxxxxxxxxxxxxx  //PUD码（最后的操作方式和txt操作方式相似）
++CMGS: 0
+OK</pre>
+
+</div>
+
+<h2 class="sectionedit7" id="基站定位_含简化指令">基站定位（含简化指令）</h2>
+<div class="level2">
+
+<p>
+相关指令 
+</p>
+<pre class="code">AT+CREG?	//查询网络的注册状态
+At+LOCATION=X(简化版) 
+注意，使用基站定位功能之前，必须先AT+CGATT=1; AT+CGDCONT=1,&quot;IP&quot;,&quot;cmnet&quot; ;AT+CGACT=1,1;三条指令完成附着网络以及激活之后才可执行。</pre>
+
+<p>
+示例
+</p>
+<pre class="code">优化前指令-&gt;
+AT+CREG=1   //=1的时候是查询网络状态，模组上电默认为1
+OK
+AT+CREG?
++CREG: 1,1     
+AT+CREG=2   //=2的时候是基站定位
+OK
+AT+CREG?	
++CREG: 2,1,&quot;xxxx&quot;,&quot;xxxx&quot;,2  // 中间参数为16进制，第一个字符串得到的是LAC，第二个字符串得到的是CI
+基站定位可以到该网站查询：http://www.gpsspg.com/bs.htm</pre>
+<pre class="code">简化版指令-&gt;单独使用AT+LOCATION=1，不必设置AT+CREG=2,
+AT+LOCATION=1(return:&lt;latitude&gt;,&lt;longitude&gt;OK)
+xx.xxxxx,xxx.xxxxxx(小数点后固定为6位)
+OK  
+直接返回经纬度 无需转换
+-&gt;at+location这句指令需要联网获取地理位置信息，所以时间的长久取决于网络情况的好坏，而且在使用前如果没有手动附着激活的话，它会自动去做这两件事情，要的时间就更长了。想要可靠有快速，建议先使用at+cgatt=1; at+cgdcont=1,&quot;IP&quot;,&quot;cmnet&quot; ;at+cgact=1,1;附着激活并保证具备联网能力</pre>
+
+</div>
+
+<h2 class="sectionedit8" id="获取基站下发时间">获取基站下发时间</h2>
+<div class="level2">
+
+<p>
+相关指令 AT+CCLK?
+</p>
+
+<p>
+指令解读 该指令在内部进行处理，在模块初始化时，模块获取了基站下发的时间后，将该时间存储在芯片的RTC寄存器中，使用AT+CCLK?即可读取出时间。
+</p>
+
+<p>
+注意使用联通卡获取的时间是有问题的。
+</p>
+
+<p>
+示例
+</p>
+<pre class="code">AT+CCLK ?
++CCLK: &quot;17/10/07,02:50:55+08&quot;	
+//该时间为零时区时间，17年10月7日2点50分55秒。+08为时区，我们这里是东八区，所以本地时间是10点50分55秒
+OK</pre>
+
+</div>
+
+<h2 class="sectionedit9" id="http">HTTP</h2>
+<div class="level2">
+
+<p>
+相关指令：
+</p>
+<pre class="code">AT+HTTPGET=&lt;url&gt;	//统一资源标志符，可以是域名或者是IP地址
+AT+HTTPPOST=&lt;url&gt;,&lt;content_type&gt;,&lt;body_content&gt;   //&lt;content_type&gt; : 网络文件的类型和网页的编码的内容类型
+					          //&lt;body_content&gt; : body的文本</pre>
+
+<p>
+示例
+</p>
+<pre class="code">AT+CGATT=1  //附着网络，如果需要上网，这条指令是必选的
++CGATT:1
+OK</pre>
+<pre class="code">AT+CGDCONT=1,&quot;IP&quot;,&quot;CMNET&quot; //设置PDP参数
+OK</pre>
+<pre class="code">AT+CGACT=1,1 //激活PDP，正确激活以后就可以上网了
+OK</pre>
+<pre class="code">AT+HTTPGET=&quot;http://wiki.ai-thinker.com/gprs_download&quot;	//连接网站，请求网站资源
+OK
+紧接着接受的是服务器响应的信息</pre>
+
+</div>
+
+<h2 class="sectionedit10" id="mqtt">MQTT</h2>
+<div class="level2">
+
+<p>
+示例：
+</p>
+<pre class="code"> AT+CGATT=1          //附着网络
+ OK</pre>
+<pre class="code"> AT+CGDCONT=1,&quot;IP&quot;,&quot;CMNET&quot; //设置PDP参数
+ OK</pre>
+<pre class="code"> AT+CGACT=1,1 //激活PDP，正确激活以后就可以上网了
+ OK</pre>
+<pre class="code"> AT+MQTTCONN=&quot;www.anthinkerwx.com&quot;,1883,&quot;12345&quot;,120,0,&quot;Ai-thinker&quot;,&quot;123456&quot; //客户端等待和连接服务器，同时发送CONNECT
+ OK// 注意：(MQTT的服务器需要自己搭建)</pre>
+<pre class="code"> AT+MQTTPUB=&quot;test&quot;,&quot;124563&quot;,0,0,0			      //客户端向服务端传输一个应用消息
+ +MQTTPUBLISH: 1, test, 6, 124563
+ OK</pre>
+<pre class="code"> AT+MQTTSUB=&quot;test&quot;,1,0				     //客户端向服务端发送SUB报文用于创建订阅
+ OK</pre>
+<pre class="code"> AT+MQTTDISCONN					     //客户端发给服务端的DISCONNECT控制报文,表示客户端正常断开连接</pre>
+
+</div>
+
+<h2 class="sectionedit11" id="透传模式和心跳包的设置">透传模式和心跳包的设置</h2>
+<div class="level2">
+
+<p>
+Init…
+</p>
+<pre class="code">+CREG: 3
++CIEV: service,  0
++CIEV: roam, 0
++CREG: 3
++CIEV: service,  1
++CIEV: roam, 0
++CREG: 1
++CREG: 0
++CREG: 1
+A9
+V01.03.20170926R //固件版本信息
+Ai Thinker Co.LTD
+READY	//初始化完成标志   前面的+CIEV: service, 1等等，是网络注册信息，在网络情况不好的时候，会在READY后面输出，没有影响。出现	+CIEV: service, 1；+CREG: 1；表明SIM初始化成功，网络正常。 初始化过程中如果没有检测到SIM卡，初始化信息中会出现NO SIM CARD</pre>
+<pre class="code">AT+CCID	//查询SIM ，序列号唯一，可以用来判断卡是否正常，如果是从安信可购买的物联网卡，可以用此序列号在官网查询电话号码，充值缴费等等。
++CCID: 898607B1101700823754
+OK</pre>
+<pre class="code">AT+CREG=1  // =1的时候是查询网络状态，模组上电默认为1
+AT+CREG?	//查询网络注册情况
++CREG: 1,5	//第一个参数1表示允许注册入网；第二个参数5表示已注册，处于漫游状态，如果是1的话，表示已注册本地网络，出现其他参数表示不正常
+OK</pre>
+<pre class="code">AT+CSQ	//查询信号强度 第一个参数为信号强度值
++CSQ: 31,99	//信号强度取值为0-31，信号强度最好保持在23以上
+OK</pre>
+<pre class="code">AT+CGATT=1  //附着网络，如果需要上网，这条指令是必选的
++CGATT:1
+OK</pre>
+<pre class="code">AT+CGDCONT=1,&quot;IP&quot;,&quot;CMNET&quot; //设置PDP参数
+OK</pre>
+<pre class="code">AT+CGACT=1,1 //激活PDP，正确激活以后就可以上网了
+OK</pre>
+<pre class="code">AT+CIPSTART=&quot;TCP&quot;,&quot;122.114.122.174&quot;,46875	//连接TCP服务器，
+CONNECT OK	//此处为安信可透传云服务器，请自行修改端口
+OK</pre>
+<pre class="code">AT+CIPHCFG?	//查询心跳包的设置
++CIPHCFG:0,,	//心跳包的默认设置发送心跳包时间间隔为0,后面为空
+OK</pre>
+<pre class="code">AT+CIPHCFG=1,&quot;55FAFBEE&quot;	//设置发送心跳包内容，长度不能低于3个字节，16进制格式
+OK</pre>
+<pre class="code">AT+CIPHCFG=2,&quot;55AFBFEE&quot;	//设置接受回应包内容，长度不能低于3个字节，16进制格式
+OK</pre>
+<pre class="code">AT+CIPHCFG=0,15	//设置发送心跳包的时间15秒钟
+OK</pre>
+<pre class="code">AT+CIPHCFG?	//查询心跳包的设置
++CIPHCFG:15,55FAFBEE,55AFBFEE	//通过上面指令设置发送间隔为15秒，心跳包与回应包后两位参数
+OK</pre>
+<pre class="code">AT+CIPHMODE=1	//启动心跳包,该命令只能在连接服务器成功以后用
+OK</pre>
+<pre class="code">AT+CIPTCFG?	//查询透传默认参数
++CIPTCFG:3,200,50,2000
+//3表示最大尝试发送失败次数，200是重发延时，单位毫秒，50是触发发送的包长度，2000是触发发送时间，单位毫秒，从输入最后一个字符算起，延至超过2000毫秒，系统也会自动发送数据
+OK  //请注意，心跳包的设置不是必须的，如果想自己发送心跳包或者不发送心跳包，可以不设置这些模组自带的心跳包指令。另外，心跳包的发送包设置后，是模组自动发送的，不需要人为控制，但是回应包是需要服务器设置发给模组的，即需要写代码定时返回数据给模组。如果模组超过三次以上没有接受到服务器发回来的回应包，模组会自动关闭心跳包，模组会接收到这样的数据  +CIPHMODE:0 ; OK. </pre>
+<pre class="code">AT+CIPTMODE=1	//启动透传模式，该指令也是只能在连接服务器成功以后使用
+OK</pre>
+<pre class="code">SEND DATA TO SERVER		//发送到服务器的数据
+SERVER SEND DATA TO DEVICE	//收到的服务器的数据</pre>
+<pre class="code">+++	//退出透传模式,和前一次发送时间超过2秒，输入+++，就可以退出透传模式
+注意，如果是单片机，不要加回车换行符，如果用的是安信可的串口调试工具，请取消勾选发送新行
+OK</pre>
+<pre class="code">AT+CIPHMODE=0 	//退出心跳包模式
+OK</pre>
+
+</div>
+
+<h2 class="sectionedit12" id="多链接">多链接</h2>
+<div class="level2">
+
+<p>
+示例
+</p>
+<pre class="code">AT+CCID          //查询CCID值 用来检测是否插入SIM、
++CCID: 898602B8191790486325      //此ID唯一 </pre>
+<pre class="code">AT+CREG?     //查询SIM的网络注册状态
++CREG: 1,5 //第一个参数1表示允许注册入网；第二个参数5表示已注册，处于漫游状态，如果是1的话，表示已注册本地网络，出现其他参数表示不正常
+OK</pre>
+<pre class="code">AT+CSQ           //查询信号强度 第一个参数为信号强度值
++CSQ: 31,99  //信号强度取值为0-31，信号强度最好保持在23以上
+OK</pre>
+<pre class="code">AT+CSQ           //查询信号强度 第一个参数为信号强度值
+CSQ: 31,99  //信号强度取值为0-31，信号强度最好保持在23以上
+OK</pre>
+<pre class="code">AT+CGATT=1   //附着网络，如果需要上网，这条指令是必选的
++CGATT:1
+OK</pre>
+<pre class="code">AT+CGDCONT=1,&quot;IP&quot;,&quot;CMNET&quot;   /设置PDP参数
+OK</pre>
+<pre class="code">AT+CGACT=1,1     //激活PDP，正确激活以后就可以上网了
+OK</pre>
+<pre class="code">AT+CIPSTATUS? //查询ip连接情况，共有8路，实际最多支持同时开4路tcpip连接
++CIPSTATUS:
+0,IP GPRSACT 
+1,IP INITIAL 
+2,IP INITIAL 
+3,IP INITIAL 
+4,IP INITIAL 
+5,IP INITIAL 
+6,IP INITIAL 
+7,IP INITIAL 
+OK
+
+AT+CIPSTART=&quot;TCP&quot;,&quot;122.114.122.174&quot;,36779 //连接TCP服务器,用户请修改自己的服务器
+CONNECT OK
+OK
+
+AT+CIPSEND=5,&quot;qwert&quot; //发送5个字节的字符，注意此种方式只支持可见字符
+OK</pre>
+<pre class="code">AT+CIPSEND=5	//发送5字节的数据，此种方式可以发送任意二进制数据
+12345
+OK</pre>
+<pre class="code">AT+CIPSEND//发送字符，以CTRL+Z(16进制的0x1a)结尾
+qwert
+OK</pre>
+<pre class="code">+CIPRCV:21,Server Send Data Test //收到服务器发送过来的数据，内容也可以是二进制任意数据
+
+AT+CIPSTATUS?          //查询链路状态
++CIPSTATUS:
+0,CONNECT OK 
+1,IP INITIAL 
+2,IP INITIAL 
+3,IP INITIAL 
+4,IP INITIAL 
+5,IP INITIAL 
+6,IP INITIAL 
+7,IP INITIAL 
+OK</pre>
+<pre class="code">AT+CIPCLOSE  //关闭该链路
+OK</pre>
+<pre class="code">AT+CIPMUX? /查询是否开启多连接
++CIPMUX:0
+OK
+
+AT+CIPMUX=1     //开启多链接
+OK
+
+AT+CIPSTART=&quot;TCP&quot;,&quot;122.114.122.174&quot;,36779  //发起第一个TCP连接
++CIPNUM:0    //只有点开启多链接的时候才会有，1为返回的链路号
+CONNECT OK
+OK</pre>
+<pre class="code">AT+CIPSTART=&quot;TCP&quot;,&quot;www.baidu.com&quot;,80   //发起第二路连接  
++CIPNUM:1    //只有点开启多链接的时候才会有，1为返回的链路号
+CONNECT OK
+OK</pre>
+<pre class="code">AT+CIPSTART=&quot;TCP&quot;,&quot;www.hao123.com&quot;,80      //发起第三路连接
++CIPNUM:2    //只有点开启多链接的时候才会有，2为返回的链路号
+CONNECT OK
+OK</pre>
+<pre class="code">AT+CIPSTATUS
++CIPSTATUS:
+0,CONNECT OK 
+1,CONNECT OK 
+2,CONNECT OK 
+3,IP INITIAL 
+4,IP INITIAL 
+5,IP INITIAL 
+6,IP INITIAL 
+7,IP INITIAL 
+OK</pre>
+<pre class="code">AT+CIPCLOSE=3   //关闭链路号为3的连接
++CME ERROR:50   //链路3实际上没有创建</pre>
+<pre class="code">AT+CIPCLOSE=2   //关闭链路号为2的连接
+OK</pre>
+<pre class="code">AT+CIPCLOSE=1   //关闭链路号为1的连接
+OK</pre>
+<pre class="code">AT+CIPSTATUS
++CIPSTATUS:   //只剩下链路0，其他两路关闭
+0,CONNECT OK 
+1,IP CLOSE 
+2,IP CLOSE 
+3,IP INITIAL 
+4,IP INITIAL 
+5,IP INITIAL 
+6,IP INITIAL 
+7,IP INITIAL 
+OK
+
+AT+CIPSTART=&quot;TCP&quot;,&quot;www.baidu.com&quot;,80
++CIPNUM:1
+CONNECT OK
+OK
+
+AT+CIPSTART=&quot;TCP&quot;,&quot;www.hao123.com&quot;,80
++CIPNUM:2
+CONNECT OK
+OK
+
+AT+CIPSTART=&quot;UDP&quot;,&quot;121.41.97.28&quot;,60006
++CIPNUM:3
+UDP BIND OK
+OK
+
+AT+CIPSTATUS?
++CIPSTATUS:   //可以看到0-3链路号都被占用，建立了4路IP连接
+0,CONNECT OK 
+1,CONNECT OK 
+2,CONNECT OK 
+3,SOCKET OK 
+4,IP INITIAL 
+5,IP INITIAL 
+6,IP INITIAL 
+7,IP INITIAL 
+OK</pre>
+<pre class="code">AT+CIPSEND=0,5,&quot;qwert&quot;//链路0发送5个字节的字符，&quot;qwert&quot;，本指令只支持可见字符
+OK</pre>
+
+</div>
+
+<h2 class="sectionedit13" id="a9a9g使用安信可微信公众号以及a9tracker_app获取定位信息">A9/A9G使用安信可微信公众号以及A9Tracker_app获取定位信息</h2>
+<div class="level2">
+
+<p>
+相关指令
+</p>
+<pre class="code">AT+GIZQRCODE	//获取二维码字符串，用来制作二维码扫码绑定，或者直接在微信上手动该字符串输入绑定
+AT+GIZTRACKER=1,0,10,1	//连接服务器 </pre>
+<pre class="code">http://wiki.ai-thinker.com/gprs/a9g/a9tracker	APP对接教程
+http://wiki.ai-thinker.com/gprs/a9g/MP		微信对接教程</pre>
+
+<p>
+指令解析
+</p>
+<pre class="code">AT+GIZTRACKER=&lt; on/off &gt;,[server],[upload interval],[use LBS],[pk],[ps]</pre>
+<pre class="code">n/off      值：0/1.该参数为0时关闭，设置为1为自动上传
+serve      选择服务器：0为安信可服务器；1为自定义服务器（第一次使用的时候必须附带PK,PS参数，连接成功后，这两个参数会被保存）
+up in      上传数据的时间间隔（s）,默认值为0（不上传）
+use LBS    值：0/1；设置1，从LBS获得定位信息;设置0，从GPS获取定位信息。当GPS信号弱，可以选择从LBS获取信息（A9只能从LBS获取信息）。默认值为0。
+pk ps      产品的key 和secret.这些是在自己创建产品时用到的,详见9/A9G十分钟对接机智云创建属于自己产品的程:http://www.jianshu.com/p/e3d86a263be5</pre>
+
+<p>
+示例
+</p>
+<pre class="code">AT+GIZQRCODE
++GIZQRCODE:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx//一长串字符串</pre>
+<pre class="code">AT+GIZTRACKER=1,0,10,1 —&gt;参数3为上传定位信息的时间间隔，参数4为选择使用基站定位功能还是GPS功能上传定位信息1-&gt;LBS,0-&gt;GPS
++GIZTRACKER:Start —&gt;返回值
+OK
++GIZWITS:sign in end
++GIZWITS:conn end —&gt;连接服务器成功
+OK</pre>
+<pre class="code">注意：该命令会自动保存，开机之后自动运行该命令连接服务器。如果需要停止运行使用At+GIZTRACKER=0;</pre>
+
+</div>
+
+<h2 class="sectionedit14" id="a9a9g十分钟对接机智云创建属于自己产品的教程">A9/A9G十分钟对接机智云创建属于自己产品的教程</h2>
+<div class="level2">
+
+<p>
+功能解读  该功能的实现，需要客户首先子机智云官网申请开发者账号，创建产品，获得产品的 Product Key和 Product Secret ，然后，常见上报的数据点类型，按以下方式发送数据即可上传到机智云服务器。
+</p>
+
+</div>
+
+<h1 class="sectionedit15" id="a9g_gps">A9G(GPS)</h1>
+<div class="level1">
+
+<p>
+<del>===== GPS（简化版） =====</del>
+<del>相关指令
+	AT+LOCATION=X
+示例
+	At+LOCATION=0(return:&lt;latitude&gt;,&lt;longitude&gt;OK)
+	xx.xxxxx,xxx.xxxxxx(小数点后固定为6位)
+	OK  
+</del>
+</p>
+
+</div>
+
+<h2 class="sectionedit16" id="gps定位">GPS定位</h2>
+<div class="level2">
+
+<p>
+相关指令
+</p>
+<pre class="code">AT+GPS=1,开 GPS	
+AT+GPS=0,关闭 GPS
+AT+GPS? ,查询 GPS 的状态
+AT+GPSRD=N，N 是数字表示 N 秒输出一条 NEMA 信息从 AT 串口。
+AT+LOCATION=X	//X=1获取的是基站的地址，X=2是获取的是GPS的地址
+
+注意，在打开GPS之后，模组的GPS_TXD会以9600波特率默认输出定位信息，这个不影响整个模组的波特率，例如A9G模组的工作波特率是115200，发送AT指令开启GPS，这个时候GPS_TXD会以9600波特率输出信息，AT串口依然是115200。
+
+另外，请注意，该定位信息会输出GNGGA GNRMC而不是 GPGGA和GPRMC，模组使用的是混合定位系统，包括了GPS,BDS和GNNS(全球导航系统)。解释一下输出信息头的组成，例如GPGGA，拆分为GP+GGA-&gt;定位系统+输出数据类型 ,GP为GPS定位系统，GGA为时间、位置、卫星数量的输出信息，同理GNGGA即为GN+GGA-&gt;定位系统+输出数据类型,GN为全球导航系统， GGA为时间、位置、卫星数量的输出信息，其他指令请依次类推。
+最后，模组默认的是GPS+BDS混合模式输出，那么输出的信息即为GN开头的数据，如果设置为单独模式，则为该模式开头的数据输出，例如设置为GPS模式，则输出信息为GPGGA。</pre>
+
+<p>
+示例
+</p>
+<pre class="code">AT+GPS=1		//开启GPS功能
+OK
+
+AT+GPSRD=N		//N秒输出一条 NEMA 信息 从 AT 串口
++GPSRD:
+$GNGGA,000840.261,2236.3719,N,11350.4081,E,0,0,,153.2,M,-3.2,M,,*4F
+$GPGSA,A,1,,,,,,,,,,,,,,,*1E
+$BDGSA,A,1,,,,,,,,,,,,,,,*0F</pre>
+<pre class="code">$GPGSV,1,1,00*79
+$BDGSV,1,1,00*68</pre>
+<pre class="code">$GNRMC,000840.261,V,2236.3719,N,11350.4081,E,0.000,0.00,060180,,,N*5C
+$GNVTG,0.00,T,,M,0.000,N,0.000,K,N*2C
+
+AT+LOCATION = 2				//获取GPS的地址信息，前提是GPS能够看得到卫星才能够返回，否则会返回GPS NOT FIX NOW</pre>
+
+</div>
+
+<h2 class="sectionedit17" id="gps扩展指令">GPS扩展指令</h2>
+<div class="level2">
+
+<p>
+相关指令
+</p>
+<pre class="code">AT+GPSMD=1    GPS模式（暂时不支持单独的BD模式，bd系统暂时只覆盖亚洲）
+AT+GPSMD=2    GPS+BD模式
+模组默认的是GPS+BDS混合模式输出，那么输出的信息即为GN开头的数据，如果设置为单独模式，则为该模式开头的数据输出，例如设置为GPS模式，则输出信息为GPGGA。</pre>
+
+<p>
+示例
+</p>
+<pre class="code">AT+GPS=1      先打开GPS
+AT+GPSMD=x    x=1或者2，选择开启那个模式， 默认为GPS+BDS模式
+At+GPSRD=x    数字x表示 x 秒输出一条 NEMA 信息从 AT 串口</pre>
+
+</div>
+
+<h2 class="sectionedit18" id="gps的低功耗模式">GPS的低功耗模式</h2>
+<div class="level2">
+
+<p>
+相关指令
+</p>
+<pre class="code">AT+GPSLP=x	//GPS的低功耗设置,x的取值分别是0,1,2
+AT+GPSLP=0	//正常模式		   ----  电流的值测试在0.063A左右
+AT+GPSLP=1	//串口低功耗模式	
+AT+GPSLP=2	//GPS低功耗模式    ----  电流的值测试在0.034A左右
+//模组GPS的默认的默认模式是正常模式，设置GPS模式的时候不会立即生效，需要过一段时间才会生效</pre>
+
+<p>
+示例：
+</p>
+<pre class="code">AT+GPS=1	//开启GPS
+AT+GPSRD=10     //10秒输出一条 NEMA 信息
+AT+GPSLP=2      //设置GPS模式为低功耗模式</pre>
+
+</div>
+
+<h2 class="sectionedit19" id="agps">AGPS</h2>
+<div class="level2">
+
+<p>
+相关指令
+</p>
+<pre class="code">AT+AGPS=1,开 AGPS，同时会打开 GPS 使用时先关闭GPS功能。
+AT+AGPS=0,关闭 AGPS，
+AT+AGPS? ,查询 AGPS 的状态
+AT+GPSRD=N，N 是数字表示 N 秒输出一条 NEMA 信息从 AT 串口。</pre>
+<pre class="code">注意，AGPS是辅助定位功能，加快GPS的定位时间，在使用之前建议先附着和激活网络，因此，要先使用命令附着和激活网络。
+注意，在打开GPS之后，模组的GPRS_RXD(因为GPS的芯片是接在gprs模组上进行通信，所以模组的GPRS_RXD实际上是gps芯片的TXD引脚)会以9600波特率默认输出定位信息，这个不影响整个模组的波特率，例如A9G模组的工作波特率是115200，发送AT指令开启GPS，这个时候GPRS_TXD会以9600波特率输出信息，AT串口依然是115200。</pre>
+
+<p>
+示例：	
+</p>
+<pre class="code">AT+CGATT=1  //附着网络，如果需要上网，这条指令是必选的
++CGATT:1
+OK</pre>
+<pre class="code">AT+CGDCONT=1,&quot;IP&quot;,&quot;CMNET&quot; //设置PDP参数
+OK</pre>
+<pre class="code">AT+CGACT=1,1 //激活PDP，正确激活以后就可以上网了
+OK</pre>
+<pre class="code">AT+GPS=0
+OK
+
+AT+AGPS=1
++AGPS:GPD OK
++AGPS:OK
+OK
+
+AT+GPSRD=N
+OK
++GPSRD:
+$GNGGA,050041.129,2236.1052,N,11350.2770,E,0,0,,3.2,M,-3.2,M,,*4D
+$GPGSA,A,1,,,,,,,,,,,,,,,*1E
+$BDGSA,A,1,,,,,,,,,,,,,,,*0F</pre>
+<pre class="code">$GPGSV,4,1,14,05,59,296,,02,53,008,,06,37,068,,19,35,142,*74
+$GPGSV,4,2,14,13,32,180,,12,28,252,,20,20,255,,25,15,288,*7F</pre>
+<pre class="code">$GPGSV,4,3,14,17,14,145,,29,11,323,,09,10,040,,15,08,205,*76
+$GPGSV,4,4,14,30,03,112,,193,,,*75
+$BDGSV,1,1,00*68</pre>
+
+</div>
+
+<h2 class="sectionedit20" id="gps指示灯的状态">GPS指示灯的状态</h2>
+<div class="level2">
+
+<p>
+相关指令
+</p>
+<pre class="code">AT+GPNT=x  	//设置GPS指示灯的状态，x=0或者x=1;
+AT+GPNT=0	//GPS灯为闪烁状态
+AT+GPNT=1	//GPS灯为电平状态 
+      </pre>
+
+<p>
+示例
+</p>
+<pre class="code">AT+GPNT=?   //查询x可以设置的值
++GPNT: (0:led flash,1:led notice)
+OK</pre>
+<pre class="code">AT+GPNT=0	//设置GPS灯的状态
+OK</pre>
+
+</div>
+
+<h2 class="sectionedit21" id="设置模组的低功耗模式">设置模组的低功耗模式</h2>
+<div class="level2">
+
+<p>
+相关指令：
+</p>
+<pre class="code">AT+SLEEP=x	//设置模组的低功耗模式，x的取值分别是0,1,2
+AT+SLEEP=0	//关闭低功耗模式  --- 进入低功耗的电流值是00.213A
+AT+SLEEP=1	//进入GPIO低功耗模式，GPIO25引脚拉低进入模组低功耗，引脚拉高将退出低功耗，GPIO25默认是高电平
+AT+SLEEP=2	//串口低功耗模式，可以通过串口唤醒  ----  还有那么一点问题********
+ 注意: 进入串口低功耗模式，在该模式串口可以接收和发送数据，模组会在低功耗和正常模式下正常切换。
+       进入GPIO口低功耗模式，在接受到数据。短信，电话不会被唤醒，需要控制引脚拉高，退出低功耗模式
+       GPIO26用于低功耗模式的通知GPIO(如果进入了GPIO低功耗模式，通过用示波器连接GPIO26引脚，可以检测GPIO26引脚的电平判断是否收到数据)
+       </pre>
+
+<p>
+示例1（GPIO低功耗）
+</p>
+<pre class="code">AT+SLEEP=1  //GPIO低功耗模式 	
+OK
+//发送命令成功之后，将GPIO25引脚和GND引脚进行相连，之后继续发送AT指令是没有任何效果的：</pre>
+
+<p>
+示例2（串口低功耗）
+</p>
+<pre class="code">AT+SLEEP=2  //串口低功耗模式
+OK
+//进入串口低功耗的时候，模组消耗的电流会降低，但是还是可以发送数据
+AT
+OK
+//模组发送数据，会自动退出低功耗，此时消耗电流又会升高</pre>
+
+<p>
+教程：<a href="http://www.jianshu.com/p/e3d86a263be5" class="urlextern" title="http://www.jianshu.com/p/e3d86a263be5" rel="nofollow">http://www.jianshu.com/p/e3d86a263be5</a>
+</p>
+
+</div>
+
+                </div>
+            </article>
+        </div>
+        <div class="mdl-layout-spacer"></div>
+        <footer class="mdl-mini-footer">
+            <div class="mdl-mini-footer__left-section">
+                <div class="mdl-logo">安信可科技 | <a href="https://docs.ai-thinker.com/gprs/examples?do=index"  class="action index" accesskey="x" rel="nofollow" title="网站地图 [X]">网站地图</a></div>
+                
+            </div>
+        </footer>
+    </main>
+</div>
+<img src="../lib/exe/indexer.php@id=gprs%253Aexamples&amp;1602939557" width="2" height="1" alt="" /></body>
+</html>
