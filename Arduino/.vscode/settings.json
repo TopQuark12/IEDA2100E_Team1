@@ -1,3 +1,19 @@
 {
+    "files.associations": {
+        "mstd_functional": "cpp",
+        "mstd_mutex": "cpp",
+        "*.tcc": "cpp",
+        "chrono": "cpp",
+        "optional": "cpp",
+        "fstream": "cpp",
+        "initializer_list": "cpp",
+        "istream": "cpp",
+        "mutex": "cpp",
+        "ostream": "cpp",
+        "sstream": "cpp",
+        "streambuf": "cpp",
+        "functional": "cpp",
+        "tuple": "cpp"
+    }
     // "C_Cpp.errorSquiggles": "Disabled"
 }

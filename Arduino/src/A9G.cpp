@@ -1,7 +1,7 @@
 #include "Arduino.h"
 #include "A9G.h"
 
-uint32_t A9G_state = RESET;
+uint32_t A9G_state = A9G_RESET;
 
 void A9G_powerOff(void) 
 {
@@ -16,7 +16,7 @@ void A9G_powerOff(void)
 
     //float nRst pin
     pinMode(A9G_NRST_PIN, INPUT);
-    A9G_state = RESET;
+    A9G_state = A9G_RESET;
 }
 
 void A9G_powerOn(void) 
@@ -30,5 +30,5 @@ void A9G_powerOn(void)
 
     //float power pin
     pinMode(A9G_PWR_PIN, INPUT);
-    A9G_state = PWR_ON;
+    A9G_state = A9G_PWR_ON;
 }

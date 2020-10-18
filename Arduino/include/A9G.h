@@ -8,6 +8,6 @@ void A9G_powerOff(void);
 
 enum A9G_state_enum
 {
-    RESET = 0,
-    PWR_ON
+    A9G_RESET = 0,
+    A9G_PWR_ON
 };
