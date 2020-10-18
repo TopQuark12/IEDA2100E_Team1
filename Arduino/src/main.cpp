@@ -1,11 +1,20 @@
 #include <Arduino.h>
+#include "A9G.h"
 
 using namespace rtos;
 
 void setup()
 {
-    pinMode(LED_BUILTIN, OUTPUT);
-    pinMode(LEDG, OUTPUT);
+    // pinMode(LED_BUILTIN, OUTPUT);
+    // pinMode(LEDG, OUTPUT);
+    A9G_powerOn();
+    delay(10000);
+    A9G_powerOff();
+    delay(10000);
+    A9G_powerOn();
+    delay(10000);
+    A9G_powerOff();
+    delay(10000);
 }
 
 void loop()
@@ -28,9 +37,9 @@ void test_thread_func()
 
 int main()
 {
-    setup();
     Thread test_thread;
     test_thread.start(&test_thread_func);
+    setup();
     while (1)
         loop();
 }
