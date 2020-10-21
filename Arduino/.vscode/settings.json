@@ -13,7 +13,8 @@
         "sstream": "cpp",
         "streambuf": "cpp",
         "functional": "cpp",
-        "tuple": "cpp"
+        "tuple": "cpp",
+        "limits": "cpp"
     }
     // "C_Cpp.errorSquiggles": "Disabled"
 }
