@@ -5,21 +5,21 @@
 using namespace rtos;
 
 static unsigned char serialCDC_threadStack[4096];
-static Thread serialCDC_thread(osPriorityBelowNormal3, sizeof(serialCDC_threadStack), serialCDC_threadStack, "Serial CDC Thread");
+static Thread serialCDC_thread(osPriorityBelowNormal5, sizeof(serialCDC_threadStack), serialCDC_threadStack, "Serial CDC Thread");
 
 String serialReadTill(String endWith);
 
-void serialCDC_thread_func() 
+void serialCDC_thread_func()  
 {
 
     String inStr;
 
     Serial.begin(115200);
-    Serial.setTimeout(ULONG_MAX);
+    // Serial.setTimeout(ULONG_MAX);
     while (true)
     {
-        inStr = Serial.readStringUntil('\n');
-        // inStr = serialReadTill("\n");
+        // inStr = Serial.readStringUntil('\n');
+        inStr = serialReadTill("\n");
         Serial.println(inStr);
         if (inStr.startsWith("AT"))
         {
@@ -38,8 +38,11 @@ String serialReadTill(String endWith)
     while(!inStr.endsWith(endWith))
     {
         if (Serial.available())
+        {
             inStr += Serial.readString();
-        delay(100);
+            // Serial.println("got sth");
+        }
+        delay(10);
     }
     return inStr;
 }
