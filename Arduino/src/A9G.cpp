@@ -8,16 +8,47 @@ static unsigned char A9G_threadStack[4096];
 static Thread A9G_thread(osPriorityAboveNormal3, sizeof(A9G_threadStack), A9G_threadStack, "A9G Thread");
 
 String serial1ReadTill(String endWith);
+void A9G_powerOff(void);
+void A9G_powerOn(void);
 
 void A9G_thread_func()
 {
     String inStr;
 
     A9G_powerOff();
+    delay(2500);
     A9G_powerOn();
 
     inStr = serial1ReadTill("READY\r\n");
-    Serial.println(inStr);
+    Serial.println("A9G Ready");
+
+    //Begin link to internet
+    Serial1.println("AT+CGATT=1");
+    serial1ReadTill("OK\r\n");
+    Serial.println("CGATT OK");
+
+    //Configure IP
+    Serial1.println("AT+CGDCONT=1,\"IP\",\"CMNET\"");
+    serial1ReadTill("OK\r\n");
+    Serial.println("IP CONFIG OK");
+
+    //Activate PDP
+    Serial1.println("AT+CGACT=1,1");
+    serial1ReadTill("OK\r\n");
+    Serial.println("PDP ACTIVATION OK");
+
+    //Connect to MQTT server
+    //Param: host, port, clientID, aliveSeconds, cleanSession, userName, password
+    Serial1.println("AT+MQTTCONN=\"ieda2100epi.duckdns.org\",1883,\"12345\",1200,0,\"IEDA2100E_TAG\",\"IEDA2100E\"");
+    serial1ReadTill("OK\r\n");
+    Serial.println("MQTT CONNECTION OK");
+
+    //Publish MQTT message
+    //Param: topic, payload, QOS, dup, remain
+    Serial1.println("AT+MQTTPUB=\"test\",\"Sensor 1 alive\",1,0,0");
+    digitalWrite(LEDB, LOW);
+    serial1ReadTill("OK\r\n");
+    Serial.println("ALIVE MESSAGE SENT");
 
     while (true)
     {
