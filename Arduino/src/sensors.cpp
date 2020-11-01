@@ -4,6 +4,7 @@
 #include "Arduino_HTS221.h"
 #include "Arduino_APDS9960.h"
 #include "Arduino_LPS22HB.h"
+#include "A9G.h"
 
 using namespace rtos;
 
@@ -12,8 +13,6 @@ static Thread sensors_thread(osPriorityAboveNormal1, sizeof(sensors_threadStack)
 
 void sensors_thread_func()  
 {
-
-    while (!Serial);
 
     if (!IMU.begin()) {
         Serial.println("Failed to initialize IMU!");
@@ -85,8 +84,13 @@ void sensors_thread_func()
         sensorReadingsStr += "kPa\t";
 
         Serial.println(sensorReadingsStr);
+
+        if (A9G_returnState() == A9G_MQTT_READY)
+            Serial.println(A9G_MQTT_sendStr("test", sensorReadingsStr));
+
         sensorReadingsStr = "";
-        delay(500);
+        delay(5000);
+        // digitalWrite(LEDB, HIGH);
     }
 
 }

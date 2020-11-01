@@ -12,7 +12,7 @@ static Thread test_thread(osPriorityAboveNormal1, sizeof(test_threadStack), test
 void setup()
 {
     serialCDC_start_thread();
-    // A9G_start_thread();
+    A9G_start_thread();
     delay(2000);                // making sure serial has initialised 
     sensors_start_thread();
     test_thread.start(&test_thread_func);

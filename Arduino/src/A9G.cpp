@@ -22,6 +22,7 @@ void A9G_thread_func()
 
     // inStr = serial1ReadTill("READY\r\n", 10000);
     Serial.println(serial1ReadTill("READY\r\n", 60000));
+    A9G_state = A9G_PWR_ON;
 
     //Begin link to internet
     // Serial1.println("AT+CGATT=1");
@@ -47,21 +48,46 @@ void A9G_thread_func()
     // Serial1.println("AT+MQTTCONN=\"ieda2100epi.duckdns.org\",1883,\"12345\",1200,0,\"IEDA2100E_TAG\",\"IEDA2100E\"");
     // serial1ReadTill("OK\r\n");
     // Serial.println("MQTT CONNECTION OK");
-    Serial.println(serial1ATsendFor("AT+MQTTCONN=\"ieda2100epi.duckdns.org\",1883,\"12345\",1200,0,\"IEDA2100E_TAG\",\"IEDA2100E\"", 10000));
+    inStr = serial1ATsendFor("AT+MQTTCONN=\"ieda2100epi.duckdns.org\",1883,\"12345\",1200,0,\"IEDA2100E_TAG\",\"IEDA2100E\"", 10000);
+    Serial.println(inStr);
+    if (inStr.endsWith("OK\r\n"))
+        A9G_state = A9G_MQTT_READY;
 
     //Publish MQTT message
     //Param: topic, payload, QOS, dup, remain
     // Serial1.println("AT+MQTTPUB=\"test\",\"Sensor 1 alive\",1,0,0");
     // digitalWrite(LEDB, LOW);
     // serial1ReadTill("OK\r\n");
-    Serial.println(serial1ATsendFor("AT+MQTTPUB=\"test\",\"Sensor 1 alive\",1,0,0", 10000));
+    // Serial.println(serial1ATsendFor("AT+MQTTPUB=\"test\",\"Sensor 1 alive\",1,0,0", 10000));
     // Serial.println("ALIVE MESSAGE SENT");
+    // A9G_MQTT_sendStr("test", "HELLO!!!");
 
     while (true)
     {
-        inStr = serial1ReadTill("\n", ULONG_MAX);
-        Serial.println(inStr);
-        inStr = "";
+        // inStr = serial1ReadTill("\n", ULONG_MAX);
+        // Serial.println(inStr);
+        // inStr = "";
+        delay(1000);
+    }
+}
+
+bool A9G_MQTT_sendStr(String topic, String message)
+{
+    String inStr, outStr;
+    if (A9G_state == A9G_MQTT_READY)
+    {
+        outStr += "AT+MQTTPUB=\"";
+        outStr += topic;
+        outStr += "\",\"";
+        outStr += message;
+        outStr += "\",1,0,0";
+        inStr = serial1ATsendFor(outStr, 10000);
+        if (inStr.endsWith("OK\r\n"))
+            return true;
+        else
+            return false;
+    } else {
+        return false;
     }
 }
 
