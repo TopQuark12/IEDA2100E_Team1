@@ -37,52 +37,55 @@ void sensors_thread_func()
     int proximity = 255;
     float pressure;
 
+    String sensorReadingsStr;
+
     while (1)
     {    
         if (IMU.accelerationAvailable()) {
 
             IMU.readAcceleration(x, y, z);
 
-            Serial.print("ax: ");
-            Serial.print(x);
-            Serial.print('\t');
-            Serial.print("ay: ");
-            Serial.print(y);
-            Serial.print('\t');
-            Serial.print("az: ");
-            Serial.print(z);
-            Serial.print('\t');
+            sensorReadingsStr += "ax: ";
+            sensorReadingsStr += x;
+            sensorReadingsStr += '\t';
+            sensorReadingsStr += "ay: ";
+            sensorReadingsStr += y;
+            sensorReadingsStr += '\t';
+            sensorReadingsStr += "az: ";
+            sensorReadingsStr += z;
+            sensorReadingsStr += '\t';
         }
 
         temperature = HTS.readTemperature(CELSIUS);
         humidity    = HTS.readHumidity();
 
-        Serial.print("temp: ");
-        Serial.print(temperature);
-        Serial.print('\t');
+        sensorReadingsStr += "temp: ";
+        sensorReadingsStr += temperature;
+        sensorReadingsStr += '\t';
 
-        Serial.print("humi: ");
-        Serial.print(humidity);
-        Serial.print('\t');
+        sensorReadingsStr += "humi: ";
+        sensorReadingsStr += humidity;
+        sensorReadingsStr += '\t';
 
         if (APDS.proximityAvailable())
         {
             proximity = APDS.readProximity();
         }
 
-        Serial.print("prox: ");
-        Serial.print(proximity);
-        Serial.print('\t');
+        sensorReadingsStr += "prox: ";
+        sensorReadingsStr += proximity;
+        sensorReadingsStr += '\t';
         if (proximity < 10)
-            Serial.print('\t');
+            sensorReadingsStr += '\t';
 
         pressure = BARO.readPressure(KILOPASCAL);
 
-        Serial.print("pres: ");
-        Serial.print(pressure);
-        Serial.print("kPa\t");
+        sensorReadingsStr += "pres: ";
+        sensorReadingsStr += pressure;
+        sensorReadingsStr += "kPa\t";
 
-        Serial.println();
+        Serial.println(sensorReadingsStr);
+        sensorReadingsStr = "";
         delay(500);
     }
 
