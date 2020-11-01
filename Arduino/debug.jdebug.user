@@ -1,0 +1,25 @@
+
+OpenDocument="Timer.cpp", FilePath="/tmp/mbed-os-program/mbed-os/drivers/source/Timer.cpp", Line=0
+OpenDocument="startup_NRF52840.S", FilePath="/tmp/mbed-os-program/mbed-os/targets/TARGET_NORDIC/TARGET_NRF5x/TARGET_NRF52/TARGET_MCU_NRF52840/device/TOOLCHAIN_GCC_ARM/startup_NRF52840.S", Line=0
+OpenDocument="A9G.cpp", FilePath="C:/nordicDev/IEDA2100E_Team1/Arduino/src/A9G.cpp", Line=4
+OpenDocument="mbed_critical.c", FilePath="/tmp/mbed-os-program/mbed-os/platform/source/mbed_critical.c", Line=0
+OpenDocument="main.cpp", FilePath="C:/nordicDev/IEDA2100E_Team1/Arduino/src/main.cpp", Line=0
+OpenDocument="main.cpp", FilePath="C:/users/alex wong/.platformio/packages/framework-arduino-nrf52-mbedos/cores/arduino/main.cpp", Line=9
+OpenToolbar="Debug", Floating=0, x=0, y=0
+OpenWindow="Call Stack", DockArea=LEFT, x=0, y=0, w=385, h=241, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Registers 1", DockArea=RIGHT, x=0, y=0, w=422, h=665, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, FilteredItems=[], RefreshRate=1
+OpenWindow="Source Files", DockArea=LEFT, x=0, y=1, w=385, h=407, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Disassembly", DockArea=LEFT, x=0, y=1, w=385, h=407, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Memory 1", DockArea=BOTTOM, x=0, y=0, w=710, h=279, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0, EditorAddress=0x40011460
+OpenWindow="Global Data", DockArea=LEFT, x=0, y=1, w=385, h=407, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Watched Data 1", DockArea=RIGHT, x=0, y=0, w=422, h=665, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Call Graph", DockArea=LEFT, x=0, y=0, w=385, h=241, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+OpenWindow="Console", DockArea=BOTTOM, x=1, y=0, w=1209, h=279, FilterBarShown=0, TotalValueBarShown=0, ToolBarShown=0
+TableHeader="Call Graph", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Stack Total";"Stack Local";"Code Total";"Code Local";"Depth";"Called From";"Call Site PC"], ColWidths=[906;100;100;100;100;119;100;100]
+TableHeader="Call Stack", SortCol="Function", SortOrder="ASCENDING", VisibleCols=["Function";"Stack Frame";"Source";"PC";"Return Address";"Stack Used"], ColWidths=[149;0;119;109;87;100]
+TableHeader="Global Data", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Location";"Size";"Type";"Access"], ColWidths=[204;167;84;45;220;100]
+TableHeader="Source Files", SortCol="File", SortOrder="ASCENDING", VisibleCols=["File";"Status";"Size";"#Insts";"Path"], ColWidths=[151;57;40;37;1184]
+TableHeader="Registers 1", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Name";"Value";"Address";"Description"], ColWidths=[129;86;62;224]
+TableHeader="Watched Data 1", SortCol="Expression", SortOrder="ASCENDING", VisibleCols=["Expression";"Value";"Location";"Refresh";"Access"], ColWidths=[144;100;75;105;100]
+TableHeader="Power Sampling", SortCol="None", SortOrder="ASCENDING", VisibleCols=["Index";"Time";"Ch 0"], ColWidths=[100;100;100]
+WatchedExpression="A9G_thread", Window=Watched Data 1

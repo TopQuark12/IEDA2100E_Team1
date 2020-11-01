@@ -15,10 +15,8 @@ void serialCDC_thread_func()
     String inStr;
 
     Serial.begin(115200);
-    // Serial.setTimeout(ULONG_MAX);
     while (true)
     {
-        // inStr = Serial.readStringUntil('\n');
         inStr = serialReadTill("\n");
         Serial.println(inStr);
         if (inStr.startsWith("AT"))
@@ -40,7 +38,6 @@ String serialReadTill(String endWith)
         if (Serial.available())
         {
             inStr += Serial.readString();
-            // Serial.println("got sth");
         }
         delay(10);
     }
