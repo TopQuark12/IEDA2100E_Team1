@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include "A9G.h"
 #include "serialCDC.h"
+#include "sensors.h"
 
 using namespace rtos;
 
@@ -10,10 +11,10 @@ static Thread test_thread(osPriorityAboveNormal1, sizeof(test_threadStack), test
 
 void setup()
 {
-    // Serial.begin(115200);
-    // delay(800);             //delay(800) must be added after Serial.begin()
     serialCDC_start_thread();
     A9G_start_thread();
+    delay(2000);                // making sure serial has initialised 
+    sensors_start_thread();
     test_thread.start(&test_thread_func);
 }
 
