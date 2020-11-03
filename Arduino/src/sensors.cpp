@@ -83,10 +83,12 @@ void sensors_thread_func()
         sensorReadingsStr += pressure;
         sensorReadingsStr += "kPa\t";
 
-        Serial.println(sensorReadingsStr);
+        // Serial.println(sensorReadingsStr);
 
         if (A9G_returnState() == A9G_MQTT_READY)
-            Serial.println(A9G_MQTT_sendStr("test", sensorReadingsStr));
+        {
+            // Serial.println(A9G_MQTT_sendStr("test", sensorReadingsStr));
+        }
 
         sensorReadingsStr = "";
         delay(5000);
