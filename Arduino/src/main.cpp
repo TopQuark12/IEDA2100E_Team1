@@ -1,36 +1,37 @@
 #include <Arduino.h>
+#include "A9G.h"
+#include "serialCDC.h"
+#include "sensors.h"
+#include "BLE.h"
 
 using namespace rtos;
 
+void test_thread_func();
+static unsigned char test_threadStack[4096];    
+static Thread test_thread(osPriorityAboveNormal1, sizeof(test_threadStack), test_threadStack, "Test Thread");
+
 void setup()
 {
-    pinMode(LED_BUILTIN, OUTPUT);
-    pinMode(LEDG, OUTPUT);
+    startBLE();
+    serialCDC_start_thread();
+    A9G_start_thread();
+    delay(2000);                // making sure serial has initialised 
+    sensors_start_thread();
+    test_thread.start(&test_thread_func);
 }
 
 void loop()
 {
-    digitalWrite(LED_BUILTIN, HIGH);
-    delay(100);
-    digitalWrite(LED_BUILTIN, LOW);
-    delay(100);
+    // Serial.println("Hello World");
+    delay(2000);
 }
 
 void test_thread_func()
 {
     while (1) {
-        digitalWrite(LEDG, HIGH);
-        delay(500);
-        digitalWrite(LEDG, LOW);
-        delay(500);
+        digitalWrite(LEDG, !HIGH);
+        delay(100);
+        digitalWrite(LEDG, !LOW);
+        delay(2000);
     }
-}
-
-int main()
-{
-    setup();
-    Thread test_thread;
-    test_thread.start(&test_thread_func);
-    while (1)
-        loop();
 }

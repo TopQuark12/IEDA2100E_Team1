@@ -1,0 +1,3 @@
+[submodule "Arduino/lib/TinyGPSfork"]
+	path = Arduino/lib/TinyGPSfork
+	url = git@github.com:TopQuark12/TinyGPSPlus.git
