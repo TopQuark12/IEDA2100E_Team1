@@ -2,6 +2,7 @@
 #include "A9G.h"
 #include "serialCDC.h"
 #include "sensors.h"
+#include "BLE.h"
 
 using namespace rtos;
 
@@ -11,6 +12,7 @@ static Thread test_thread(osPriorityAboveNormal1, sizeof(test_threadStack), test
 
 void setup()
 {
+    startBLE();
     serialCDC_start_thread();
     A9G_start_thread();
     delay(2000);                // making sure serial has initialised 
