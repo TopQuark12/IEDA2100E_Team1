@@ -1,6 +1,8 @@
 #include <Arduino.h>
 #include "A9G.h"
+#include "sensors.h"
 #include "TinyGPS++.h"
+#include "BLE.h"
 
 using namespace rtos;
 
@@ -9,10 +11,7 @@ static unsigned char A9G_threadStack[4096];
 static Thread A9G_thread(osPriorityAboveNormal3, sizeof(A9G_threadStack), A9G_threadStack, "A9G Thread");
 
 TinyGPSPlus gps;
-TinyGPSCustom latitude(gps, "GNGGA", 2);
-TinyGPSCustom latitudeDir(gps, "GNGGA", 3);
-TinyGPSCustom longtitude(gps, "GNGGA", 4);
-TinyGPSCustom longtitudeDir(gps, "GNGGA", 5);
+TinyGPSCustom frameEnd(gps, "GNVTG", 1);
 TinyGPSCustom gnssQuality(gps, "GNGGA", 6);
 
 String serial1ATsendFor(String command, unsigned long timeoutMs);
@@ -31,6 +30,9 @@ void A9G_thread_func()
     // inStr = serial1ReadTill("READY\r\n", 10000);
     Serial.println(serial1ReadTill("READY\r\n", 60000));
     A9G_state = A9G_PWR_ON;
+    delay(2000);
+
+    // Serial.println(serial1ATsendFor("AT&F0", 20000));
 
     //Begin link to internet
     // Serial1.println("AT+CGATT=1");
@@ -61,13 +63,6 @@ void A9G_thread_func()
     if (inStr.endsWith("OK\r\n"))
         A9G_state = A9G_MQTT_READY;
 
-    Serial.println(serial1ATsendFor("AT+GPS=0", 10000));
-    Serial.println(serial1ATsendFor("AT+AGPS=1", 10000));
-    Serial.println(serial1ATsendFor("AT+GPSRD=5", 10000));
-    Serial.println(serial1ATsendFor("AT+GPSLP=0", 10000));
-    Serial.println(serial1ATsendFor("AT+GPSMD=2", 10000));
-
-
     //Publish MQTT message
     //Param: topic, payload, QOS, dup, remain
     // Serial1.println("AT+MQTTPUB=\"test\",\"Sensor 1 alive\",1,0,0");
@@ -75,27 +70,56 @@ void A9G_thread_func()
     // serial1ReadTill("OK\r\n");
     // Serial.println(serial1ATsendFor("AT+MQTTPUB=\"test\",\"Sensor 1 alive\",1,0,0", 10000));
     // Serial.println("ALIVE MESSAGE SENT");
-    // A9G_MQTT_sendStr("test", "HELLO!!!");
+    A9G_MQTT_sendStr("test", "HELLO lol!!!");
+
+    Serial.println(serial1ATsendFor("AT+GPS=0", 10000));
+    Serial.println(serial1ATsendFor("AT+AGPS=1", 10000));
+    // delay(20000);
+    Serial.println(serial1ReadTill("\r\n", 50000));
+    Serial.println(serial1ATsendFor("AT+GPSLP=0", 10000));
+    Serial.println(serial1ATsendFor("AT+GPSMD=2", 10000));
+    Serial.println(serial1ATsendFor("AT+GPSRD=6", 25000));    
+
+    String latStr;
+    String lngStr;
+    String MQTTmsg;
+    unsigned long lastSent = millis();
 
     while (true)
     {
         inStr = serial1ReadTill("\n", ULONG_MAX);
         Serial.println(inStr);
+        // delay(100);
         for (unsigned int i = 0; i < inStr.length(); i++)
             gps.encode(inStr[i]);
         // Serial.println(gps.location.lat(), 6);
         // Serial.println(gps.location.lng(), 6);
-        Serial.println(gps.location.lat(), 6);
-        Serial.println(gps.location.lng(), 6);
-        Serial.print(latitude.value());
-        Serial.println(latitudeDir.value());
-        Serial.print(longtitude.value());
-        Serial.println(longtitudeDir.value());
-        Serial.print("Fix Quality : ");
-        Serial.println(gnssQuality.value());
+        // Serial.print("Fix Quality : ");
+        // Serial.println(gnssQuality.value());
         inStr = "";
-        // Serial.println(serial1ATsendFor("AT+LOCATION=1", 50000));
-        // delay(10000);
+        if (frameEnd.isUpdated())
+        {
+            String latStr = String(gps.location.lat(), 6);
+            String lngStr = String(gps.location.lng(), 6);
+            MQTTmsg =   "id=" + BLEgetAddr() + ";" +
+                        sensorGetString() +
+                        "lat=" + latStr + ";" +
+                        "lng=" + lngStr + ";" +
+                        "fix=" + String(gnssQuality.value());
+
+            // Serial.println(MQTTmsg);
+
+            // 9G_MQTT_sendStr("boxTag", MQTTmsg);
+        }
+
+        if (millis() - lastSent > 60000)
+        {
+            Serial.println(MQTTmsg);
+
+            A9G_MQTT_sendStr("boxTag", MQTTmsg);
+
+            lastSent = millis();
+        }
 
     }
 }
@@ -122,6 +146,7 @@ bool A9G_MQTT_sendStr(String topic, String message)
 
 String serial1ATsendFor(String command, unsigned long timeoutMs)
 {
+    Serial1.flush();
     Serial1.println(command);
     unsigned long startTime = millis();
     String inStr;
@@ -140,7 +165,7 @@ String serial1ATsendFor(String command, unsigned long timeoutMs)
         }
         delay(10);
     }
-    Serial1.flush();
+    // Serial1.flush();
     if (inStr.indexOf("OK\r\n") == -1)
     {
         return "TIMEOUT : " + command;
