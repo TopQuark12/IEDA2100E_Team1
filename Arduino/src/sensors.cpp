@@ -19,7 +19,7 @@ void sensors_thread_func()
     }
 
     if (!HTS.begin()) {
-        Serial.println("Failed to initialize humidity temperature sensor!");
+        Serial.println("Failed to initialize humidity temperature sensor!"); 
     }
 
     if (!APDS.begin()) {

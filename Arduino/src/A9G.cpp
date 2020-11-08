@@ -27,37 +27,20 @@ void A9G_thread_func()
     delay(2500);
     A9G_powerOn();
 
-    // inStr = serial1ReadTill("READY\r\n", 10000);
     Serial.println(serial1ReadTill("READY\r\n", 60000));
     A9G_state = A9G_PWR_ON;
     delay(2000);
 
-    // Serial.println(serial1ATsendFor("AT&F0", 20000));
-
-    //Begin link to internet
-    // Serial1.println("AT+CGATT=1");
-    // serial1ReadTill("OK\r\n");
-    // Serial.println("CGATT OK");
+    // Begin link to internet
     Serial.println(serial1ATsendFor("AT+CGATT=1", 20000));
     
-
     //Configure IP
-    // Serial1.println("AT+CGDCONT=1,\"IP\",\"CMNET\"");
-    // serial1ReadTill("OK\r\n");
-    // Serial.println("IP CONFIG OK");
     Serial.println(serial1ATsendFor("AT+CGDCONT=1,\"IP\",\"CMNET\"", 10000));
 
     //Activate PDP
-    // Serial1.println("AT+CGACT=1,1");
-    // serial1ReadTill("OK\r\n");
-    // Serial.println("PDP ACTIVATION OK");
     Serial.println(serial1ATsendFor("AT+CGACT=1,1", 10000));
 
     //Connect to MQTT server
-    //Param: host, port, clientID, aliveSeconds, cleanSession, userName, password
-    // Serial1.println("AT+MQTTCONN=\"ieda2100epi.duckdns.org\",1883,\"12345\",1200,0,\"IEDA2100E_TAG\",\"IEDA2100E\"");
-    // serial1ReadTill("OK\r\n");
-    // Serial.println("MQTT CONNECTION OK");
     inStr = serial1ATsendFor("AT+MQTTCONN=\"ieda2100epi.duckdns.org\",1883,\"12345\",1200,0,\"IEDA2100E_TAG\",\"IEDA2100E\"", 10000);
     Serial.println(inStr);
     if (inStr.endsWith("OK\r\n"))
@@ -65,20 +48,16 @@ void A9G_thread_func()
 
     //Publish MQTT message
     //Param: topic, payload, QOS, dup, remain
-    // Serial1.println("AT+MQTTPUB=\"test\",\"Sensor 1 alive\",1,0,0");
-    // digitalWrite(LEDB, LOW);
-    // serial1ReadTill("OK\r\n");
-    // Serial.println(serial1ATsendFor("AT+MQTTPUB=\"test\",\"Sensor 1 alive\",1,0,0", 10000));
-    // Serial.println("ALIVE MESSAGE SENT");
-    A9G_MQTT_sendStr("test", "HELLO lol!!!");
+    // A9G_MQTT_sendStr("test", "HELLO lol!!!");
 
     Serial.println(serial1ATsendFor("AT+GPS=0", 10000));
     Serial.println(serial1ATsendFor("AT+AGPS=1", 10000));
-    // delay(20000);
     Serial.println(serial1ReadTill("\r\n", 50000));
     Serial.println(serial1ATsendFor("AT+GPSLP=0", 10000));
     Serial.println(serial1ATsendFor("AT+GPSMD=2", 10000));
     Serial.println(serial1ATsendFor("AT+GPSRD=6", 25000));    
+
+    // Serial.println(A9G_MQTT_sendStr("test", "LOLOLOL"));
 
     String latStr;
     String lngStr;
@@ -116,7 +95,25 @@ void A9G_thread_func()
         {
             Serial.println(MQTTmsg);
 
-            A9G_MQTT_sendStr("boxTag", MQTTmsg);
+            while (!A9G_MQTT_sendStr("boxTag", MQTTmsg))
+            {
+                Serial.println("GSM reconnect");
+
+                // Begin link to internet
+                Serial.println(serial1ATsendFor("AT+CGATT=1", 20000));
+                
+                //Configure IP
+                Serial.println(serial1ATsendFor("AT+CGDCONT=1,\"IP\",\"CMNET\"", 10000));
+
+                //Activate PDP
+                Serial.println(serial1ATsendFor("AT+CGACT=1,1", 10000));
+
+                //Connect to MQTT server
+                inStr = serial1ATsendFor("AT+MQTTCONN=\"ieda2100epi.duckdns.org\",1883,\"12345\",1200,0,\"IEDA2100E_TAG\",\"IEDA2100E\"", 10000);
+                Serial.println(inStr);
+                if (inStr.endsWith("OK\r\n"))
+                    A9G_state = A9G_MQTT_READY;
+            }
 
             lastSent = millis();
         }
