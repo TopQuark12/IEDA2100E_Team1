@@ -5,11 +5,15 @@
 #include "Arduino_APDS9960.h"
 #include "Arduino_LPS22HB.h"
 #include "A9G.h"
+#include "Mutex.h"
 
 using namespace rtos;
 
 static unsigned char sensors_threadStack[4096];
 static Thread sensors_thread(osPriorityAboveNormal1, sizeof(sensors_threadStack), sensors_threadStack, "sensors Thread");
+
+Mutex sensorStrMtx;
+String sensorStr = "";
 
 void sensors_thread_func()  
 {
@@ -30,68 +34,60 @@ void sensors_thread_func()
         Serial.println("Failed to initialize pressure sensor!");
     }
 
-    // float x, y, z;
+    float x, y, z;
     float temperature;
     float humidity;
     int proximity = 255;
     float pressure;
 
-    String sensorReadingsStr;
+    String sensorReadingsStrLocal;
 
     while (1)
     {    
-        // if (IMU.accelerationAvailable()) {
+        if (IMU.accelerationAvailable()) {
 
-        //     IMU.readAcceleration(x, y, z);
+            IMU.readAcceleration(x, y, z);
 
-        //     sensorReadingsStr += "ax= ";
-        //     sensorReadingsStr += x;
-        //     sensorReadingsStr += ';';
-        //     sensorReadingsStr += "ay= ";
-        //     sensorReadingsStr += y;
-        //     sensorReadingsStr += ';';
-        //     sensorReadingsStr += "az= ";
-        //     sensorReadingsStr += z;
-        //     sensorReadingsStr += ';';
-        // }
+        }
 
         temperature = HTS.readTemperature(CELSIUS);
         humidity    = HTS.readHumidity();
 
-        sensorReadingsStr += "temp=";
-        sensorReadingsStr += temperature;
-        sensorReadingsStr += ';';
+        sensorReadingsStrLocal += "temp=";
+        sensorReadingsStrLocal += temperature;
+        sensorReadingsStrLocal += ';';
 
-        sensorReadingsStr += "humi=";
-        sensorReadingsStr += humidity;
-        sensorReadingsStr += ';';
+        sensorReadingsStrLocal += "humi=";
+        sensorReadingsStrLocal += humidity;
+        sensorReadingsStrLocal += ';';
 
         if (APDS.proximityAvailable())
         {
             proximity = APDS.readProximity();
         }
 
-        sensorReadingsStr += "prox=";
-        sensorReadingsStr += proximity;
-        sensorReadingsStr += ';';
+        sensorReadingsStrLocal += "prox=";
+        sensorReadingsStrLocal += proximity;
+        sensorReadingsStrLocal += ';';
         if (proximity < 10)
-            sensorReadingsStr += ';';
+            sensorReadingsStrLocal += ';';
 
         pressure = BARO.readPressure(KILOPASCAL);
 
-        sensorReadingsStr += "pres=";
-        sensorReadingsStr += pressure;
-        sensorReadingsStr += ";";
+        sensorReadingsStrLocal += "pres=";
+        sensorReadingsStrLocal += pressure;
+        sensorReadingsStrLocal += ";";
 
-        // Serial.println(sensorReadingsStr);
+        Serial.println(sensorReadingsStrLocal);
 
-        if (A9G_returnState() == A9G_MQTT_READY)
-        {
-            // Serial.println(A9G_MQTT_sendStr("test", sensorReadingsStr));
-        }
 
-        sensorReadingsStr = "";
-        delay(5000);
+
+        sensorStrMtx.lock();
+        sensorStr = sensorReadingsStrLocal;
+        sensorStrMtx.unlock();
+
+        sensorReadingsStrLocal = "";
+        osDelayUntil(osKernelGetTickCount() + 50);
         // digitalWrite(LEDB, HIGH);
     }
 
@@ -99,80 +95,14 @@ void sensors_thread_func()
 
 String sensorGetString(void)
 {
-
-    // float x, y, z;
-    static float temperature;
-    static float humidity;
-    static int proximity = 255;
-    static float pressure;
-
-    String sensorReadingsStr;
- 
-    // if (IMU.accelerationAvailable()) {
-
-    //     IMU.readAcceleration(x, y, z);
-
-    //     sensorReadingsStr += "ax= ";
-    //     sensorReadingsStr += x;
-    //     sensorReadingsStr += ';';
-    //     sensorReadingsStr += "ay= ";
-    //     sensorReadingsStr += y;
-    //     sensorReadingsStr += ';';
-    //     sensorReadingsStr += "az= ";
-    //     sensorReadingsStr += z;
-    //     sensorReadingsStr += ';';
-    // }
-
-    temperature = HTS.readTemperature(CELSIUS);
-    humidity    = HTS.readHumidity();
-
-    sensorReadingsStr += "temp=";
-    sensorReadingsStr += temperature;
-    sensorReadingsStr += ';';
-
-    sensorReadingsStr += "humi=";
-    sensorReadingsStr += humidity;
-    sensorReadingsStr += ';';
-
-    if (APDS.proximityAvailable())
-    {
-        proximity = APDS.readProximity();
-    }
-
-    sensorReadingsStr += "prox=";
-    sensorReadingsStr += proximity;
-    sensorReadingsStr += ';';
-    // if (proximity < 10)
-    //     sensorReadingsStr += ';';
-
-    pressure = BARO.readPressure(KILOPASCAL);
-
-    sensorReadingsStr += "pres=";
-    sensorReadingsStr += pressure;
-    sensorReadingsStr += ";";
-
-    return sensorReadingsStr;
-
-    // Serial.println(sensorReadingsStr);
+    String sensorReadingsStrLocal;
+    sensorStrMtx.lock();
+    sensorReadingsStrLocal = sensorStr;
+    sensorStrMtx.unlock();
+    return sensorReadingsStrLocal;
 }
 
 void sensors_start_thread()
 {
-    if (!IMU.begin()) {
-        Serial.println("Failed to initialize IMU!");
-    }
-
-    if (!HTS.begin()) {
-        Serial.println("Failed to initialize humidity temperature sensor!");
-    }
-    HTS.readHumidity();
-
-    if (!APDS.begin()) {
-        Serial.println("Error initializing APDS9960 sensor.");
-    }
-
-    if (!BARO.begin()) {
-        Serial.println("Failed to initialize pressure sensor!");
-    }
-    // sensors_thread.start(&sensors_thread_func);
+    sensors_thread.start(&sensors_thread_func);
 }

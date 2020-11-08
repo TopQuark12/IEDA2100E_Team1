@@ -55,7 +55,7 @@ void A9G_thread_func()
     Serial.println(serial1ReadTill("\r\n", 50000));
     Serial.println(serial1ATsendFor("AT+GPSLP=0", 10000));
     Serial.println(serial1ATsendFor("AT+GPSMD=2", 10000));
-    Serial.println(serial1ATsendFor("AT+GPSRD=6", 25000));    
+    Serial.println(serial1ATsendFor("AT+GPSRD=1", 25000));    
 
     // Serial.println(A9G_MQTT_sendStr("test", "LOLOLOL"));
 
@@ -71,10 +71,6 @@ void A9G_thread_func()
         // delay(100);
         for (unsigned int i = 0; i < inStr.length(); i++)
             gps.encode(inStr[i]);
-        // Serial.println(gps.location.lat(), 6);
-        // Serial.println(gps.location.lng(), 6);
-        // Serial.print("Fix Quality : ");
-        // Serial.println(gnssQuality.value());
         inStr = "";
         if (frameEnd.isUpdated())
         {
