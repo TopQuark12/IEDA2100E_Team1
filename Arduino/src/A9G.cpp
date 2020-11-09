@@ -6,6 +6,8 @@
 
 using namespace rtos;
 
+const uint32_t sendPeriod = 30000;
+
 uint32_t A9G_state = A9G_RESET;
 static unsigned char A9G_threadStack[4096];
 static Thread A9G_thread(osPriorityAboveNormal3, sizeof(A9G_threadStack), A9G_threadStack, "A9G Thread");
@@ -51,7 +53,7 @@ void A9G_thread_func()
     // A9G_MQTT_sendStr("test", "HELLO lol!!!");
 
     Serial.println(serial1ATsendFor("AT+GPS=0", 10000));
-    Serial.println(serial1ATsendFor("AT+AGPS=1", 10000));
+    Serial.println(serial1ATsendFor("AT+AGPS=1", 50000));
     Serial.println(serial1ReadTill("\r\n", 50000));
     Serial.println(serial1ATsendFor("AT+GPSLP=0", 10000));
     Serial.println(serial1ATsendFor("AT+GPSMD=2", 10000));
@@ -62,7 +64,7 @@ void A9G_thread_func()
     String latStr;
     String lngStr;
     String MQTTmsg;
-    unsigned long lastSent = millis();
+    unsigned long lastSent = millis() - sendPeriod;
 
     while (true)
     {
@@ -71,24 +73,23 @@ void A9G_thread_func()
         // delay(100);
         for (unsigned int i = 0; i < inStr.length(); i++)
             gps.encode(inStr[i]);
-        inStr = "";
-        if (frameEnd.isUpdated())
+        inStr = "";        
+
+        if (millis() - lastSent > sendPeriod)
         {
-            String latStr = String(gps.location.lat(), 6);
-            String lngStr = String(gps.location.lng(), 6);
-            MQTTmsg =   "id=" + BLEgetAddr() + ";" +
-                        sensorGetString() +
-                        "lat=" + latStr + ";" +
-                        "lng=" + lngStr + ";" +
-                        "fix=" + String(gnssQuality.value());
 
-            // Serial.println(MQTTmsg);
+            if (frameEnd.isUpdated())
+            {
+                String latStr = String(gps.location.lat(), 6);
+                String lngStr = String(gps.location.lng(), 6);
+                MQTTmsg =   "id=" + BLEgetAddr() + ";" +
+                            sensorGetString() +
+                            "lat=" + latStr + ";" +
+                            "lng=" + lngStr + ";" +
+                            "fix=" + String(gnssQuality.value());
 
-            // 9G_MQTT_sendStr("boxTag", MQTTmsg);
-        }
+            }
 
-        if (millis() - lastSent > 60000)
-        {
             Serial.println(MQTTmsg);
 
             while (!A9G_MQTT_sendStr("boxTag", MQTTmsg))

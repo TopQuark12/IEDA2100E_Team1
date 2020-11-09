@@ -14,6 +14,8 @@ static Thread sensors_thread(osPriorityAboveNormal1, sizeof(sensors_threadStack)
 
 Mutex sensorStrMtx;
 String sensorStr = "";
+float peakA = 0;
+int maxProx = 0;
 
 void sensors_thread_func()  
 {
@@ -34,7 +36,7 @@ void sensors_thread_func()
         Serial.println("Failed to initialize pressure sensor!");
     }
 
-    float x, y, z;
+    float x, y, z, accelMag;
     float temperature;
     float humidity;
     int proximity = 255;
@@ -44,12 +46,7 @@ void sensors_thread_func()
 
     while (1)
     {    
-        if (IMU.accelerationAvailable()) {
-
-            IMU.readAcceleration(x, y, z);
-
-        }
-
+        
         temperature = HTS.readTemperature(CELSIUS);
         humidity    = HTS.readHumidity();
 
@@ -64,30 +61,37 @@ void sensors_thread_func()
         if (APDS.proximityAvailable())
         {
             proximity = APDS.readProximity();
+            if (proximity > maxProx)
+                maxProx = proximity;
         }
 
-        sensorReadingsStrLocal += "prox=";
-        sensorReadingsStrLocal += proximity;
-        sensorReadingsStrLocal += ';';
-        if (proximity < 10)
-            sensorReadingsStrLocal += ';';
-
         pressure = BARO.readPressure(KILOPASCAL);
-
         sensorReadingsStrLocal += "pres=";
         sensorReadingsStrLocal += pressure;
         sensorReadingsStrLocal += ";";
 
-        Serial.println(sensorReadingsStrLocal);
+        if (IMU.accelerationAvailable()) {
 
-
+            IMU.readAcceleration(x, y, z);
+            accelMag = sqrt(x * x + y * y + z * z);
+            if (accelMag > peakA)
+                peakA = accelMag;
+        }
 
         sensorStrMtx.lock();
-        sensorStr = sensorReadingsStrLocal;
+        sensorReadingsStrLocal += "peakA=";
+        sensorReadingsStrLocal += peakA;
+        sensorReadingsStrLocal += ';';
+        sensorReadingsStrLocal += "prox=";
+        sensorReadingsStrLocal += maxProx;
+        sensorReadingsStrLocal += ';';
+        sensorStr = sensorReadingsStrLocal;        
         sensorStrMtx.unlock();
-
+        
+    
+        // Serial.println(sensorReadingsStrLocal);
         sensorReadingsStrLocal = "";
-        osDelayUntil(osKernelGetTickCount() + 50);
+        osDelayUntil(osKernelGetTickCount() + 20);
         // digitalWrite(LEDB, HIGH);
     }
 
@@ -97,6 +101,8 @@ String sensorGetString(void)
 {
     String sensorReadingsStrLocal;
     sensorStrMtx.lock();
+    peakA = 0;
+    maxProx = 0;
     sensorReadingsStrLocal = sensorStr;
     sensorStrMtx.unlock();
     return sensorReadingsStrLocal;
