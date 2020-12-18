@@ -3,12 +3,13 @@
 #include "serialCDC.h"
 #include "sensors.h"
 #include "BLE.h"
+#include "HardwareSerial.h"
 
 using namespace rtos;
 
 void test_thread_func();
 static unsigned char test_threadStack[4096];    
-static Thread test_thread(osPriorityAboveNormal1, sizeof(test_threadStack), test_threadStack, "Test Thread");
+static Thread test_thread(osPriorityAboveNormal5, sizeof(test_threadStack), test_threadStack, "Test Thread");
 
 void setup()
 {
@@ -28,7 +29,10 @@ void loop()
 
 void test_thread_func()
 {
+    // UART gpsSerial(digitalPinToPinName(5), digitalPinToPinName(4), NC, NC); //tx, rx, rts, cts
+    Serial2.begin(115200);
     while (1) {
+        Serial2.println("testing");
         digitalWrite(LEDG, !HIGH);
         delay(100);
         digitalWrite(LEDG, !LOW);

@@ -53,6 +53,7 @@ void sensors_thread_func()
         sensorReadingsStrLocal += "temp=";
         sensorReadingsStrLocal += temperature;
         sensorReadingsStrLocal += ';';
+        
 
         sensorReadingsStrLocal += "humi=";
         sensorReadingsStrLocal += humidity;
